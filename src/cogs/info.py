@@ -1,4 +1,5 @@
 #[Info API]
+import os
 import json
 import discord
 from discord.ext import commands
@@ -17,8 +18,9 @@ with open('.././data/collot_info.json') as collot_i:
 #cmd var
 sv = 'Server'
 cobo = 'Collot Bot'
-COLLOT_ID = 513382486269624332
-BINARY = 871649185194184704
+COLLOT_ID = os.environ['COLID']
+BINARY = os.environ['BINARY']
+CONSTLOG = os.environ['CONSTLOG']
 
 class Help(discord.ui.View):
     def __init__(self, ctx):
@@ -151,6 +153,14 @@ class infoAPI(commands.Cog):
         print('[{0}][{1}][cogs/info/{2}] Command loaded : whois'.format(sv, datetime.now(), self.__class__.__name__))
         print('[{0}][{1}][cogs/info/{2}] Command loaded : serverinfo'.format(sv, datetime.now(), self.__class__.__name__))
         print('[{0}][{1}][cogs/info/{2}] Command loaded : help'.format(sv, datetime.now(), self.__class__.__name__))
+
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][cogs/info] Loaded : {2}'.format(sv, datetime.now(), self.__class__.__name__))
+        await constlog.send('[{0}][{1}][cogs/info/{2}] Command loaded : about'.format(sv, datetime.now(), self.__class__.__name__))
+        await constlog.send('[{0}][{1}][cogs/info/{2}] Command loaded : info'.format(sv, datetime.now(), self.__class__.__name__))
+        await constlog.send('[{0}][{1}][cogs/info/{2}] Command loaded : whois'.format(sv, datetime.now(), self.__class__.__name__))
+        await constlog.send('[{0}][{1}][cogs/info/{2}] Command loaded : serverinfo'.format(sv, datetime.now(), self.__class__.__name__))
+        await constlog.send('[{0}][{1}][cogs/info/{2}] Command loaded : help'.format(sv, datetime.now(), self.__class__.__name__))
     
     @slash_command(guild_ids=[BINARY], description="I'll show you how I come")
     async def about(self, ctx):       
@@ -184,6 +194,10 @@ class infoAPI(commands.Cog):
         
         #cmd
         print('[{0}][{1}][{2}] query "about" server : {3} channel : {4}'
+        .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
+
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][{2}] query "about" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
     
     @slash_command(guild_ids=[BINARY], description="Show member profile that you mention")
@@ -219,6 +233,10 @@ class infoAPI(commands.Cog):
         print('[{0}][{1}][{2}] query "info" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
 
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][{2}] query "info" server : {3} channel : {4}'
+        .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
+
     @slash_command(guild_ids=[BINARY], description="Show user profile search by user ID")
     async def whois(self, ctx, user_id : Option(str, "Input user ID")):
         try :
@@ -251,6 +269,10 @@ class infoAPI(commands.Cog):
             await ctx.respond("User not found please try again")
         #cmd
         print('[{0}][{1}][{2}] query "whois" server : {3} channel : {4}'
+        .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
+
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][{2}] query "whois" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
 
     @slash_command(guild_ids=[BINARY], description="Show user profile search by user ID")
@@ -292,6 +314,10 @@ class infoAPI(commands.Cog):
         print('[{0}][{1}][{2}] query "serverinfo" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
 
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][{2}] query "serverinfo" server : {3} channel : {4}'
+        .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
+
     @slash_command(guild_ids=[BINARY], description="I'm here to help you")
     async def help(self, ctx):
         
@@ -323,6 +349,10 @@ class infoAPI(commands.Cog):
         #cmd
         print('[{0}][{1}][{2}] query "help" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
+
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send(print('[{0}][{1}][{2}] query "help" server : {3} channel : {4}'
+        .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel)))
 
 def setup(bot):
     bot.add_cog(infoAPI(bot))

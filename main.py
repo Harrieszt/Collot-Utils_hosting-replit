@@ -1,8 +1,11 @@
 #[Main Script]
 #[Discord Library]
 import os
+import json
 from keepAlive import keep_alive
 import discord
+from discord.embeds import Embed
+from discord.utils import get
 from discord.ext import commands
 from discord import Intents
 
@@ -19,7 +22,7 @@ class collot_bot(commands.Bot):
         super().__init__(command_prefix='c/', help_command=None, *args, **kwargs, intents=Intents.all())
 
 #####[Main System]#####
-bot = collot_bot(case_insensitive=True)
+bot = collot_bot(owner_id=513382486269624332, case_insensitive=True)
 
 @bot.event
 async def on_ready():

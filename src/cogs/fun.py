@@ -1,3 +1,4 @@
+import os
 import re
 import discord
 from discord.ext import commands
@@ -21,7 +22,8 @@ with open('.././data/random_img/dog.json') as dog:
 
 sv = 'Server'
 cobo = 'Collot Bot'
-BINARY = 871649185194184704
+BINARY = os.environ['BINARY']
+CONSTLOG = os.environ['CONSTLOG']
 
 def circle(pfp,size = (215,215)):
     
@@ -48,6 +50,14 @@ class funAPI(commands.Cog):
         print('[{0}][{1}][cogs/info/{2}] Command loaded : bird'.format(sv, datetime.now(), self.__class__.__name__))
         print('[{0}][{1}][cogs/info/{2}] Command loaded : cat'.format(sv, datetime.now(), self.__class__.__name__))
         print('[{0}][{1}][cogs/info/{2}] Command loaded : dog'.format(sv, datetime.now(), self.__class__.__name__))
+
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][cogs/info] Loaded : {2}'.format(sv, datetime.now(), self.__class__.__name__))
+        await constlog.send('[{0}][{1}][cogs/info/{2}] Command loaded : wanted'.format(sv, datetime.now(), self.__class__.__name__))
+        await constlog.send('[{0}][{1}][cogs/info/{2}] Command loaded : rip'.format(sv, datetime.now(), self.__class__.__name__))
+        await constlog.send('[{0}][{1}][cogs/info/{2}] Command loaded : bird'.format(sv, datetime.now(), self.__class__.__name__))
+        await constlog.send('[{0}][{1}][cogs/info/{2}] Command loaded : cat'.format(sv, datetime.now(), self.__class__.__name__))
+        await constlog.send('[{0}][{1}][cogs/info/{2}] Command loaded : dog'.format(sv, datetime.now(), self.__class__.__name__))
     
     @slash_command(guild_ids=[BINARY], description="This command is in delopment")
     async def wanted(self, ctx, user : discord.Member = None):
@@ -92,6 +102,10 @@ class funAPI(commands.Cog):
         #cmd
         print('[{0}][{1}][{2}] query "wanted" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
+
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][{2}] query "wanted" server : {3} channel : {4}'
+        .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
     
     @slash_command(guild_ids=[BINARY], description="This command is in delopment")
     async def rip(self, ctx, user : discord.Member = None):
@@ -118,6 +132,10 @@ class funAPI(commands.Cog):
         print('[{0}][{1}][{2}] query "rip" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
 
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][{2}] query "rip" server : {3} channel : {4}'
+        .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
+
     @slash_command(guild_ids=[BINARY], description="Send random bird image")
     async def bird(self, ctx):
         #random num
@@ -141,6 +159,10 @@ class funAPI(commands.Cog):
         await ctx.respond(embed=emBed, view=view)
         #cmd
         print('[{0}][{1}][{2}] query "bird" server : {3} channel : {4}'
+        .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
+
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][{2}] query "bird" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
     
     @slash_command(guild_ids=[BINARY], description="Send random cat image")
@@ -167,6 +189,10 @@ class funAPI(commands.Cog):
         #cmd
         print('[{0}][{1}][{2}] query "cat" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
+
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][{2}] query "cat" server : {3} channel : {4}'
+        .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
     
     @slash_command(guild_ids=[BINARY], description="Send random dog image")
     async def dog(self, ctx):
@@ -191,6 +217,10 @@ class funAPI(commands.Cog):
         await ctx.respond(embed=emBed, view=view)
         #cmd
         print('[{0}][{1}][{2}] query "dog" server : {3} channel : {4}'
+        .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
+
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][{2}] query "dog" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
 
 def setup(bot):

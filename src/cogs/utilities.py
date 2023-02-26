@@ -1,4 +1,5 @@
 import discord
+import os
 from discord.ext import commands
 from discord.commands import Option, slash_command
 from datetime import datetime
@@ -7,7 +8,8 @@ import random
 
 sv = 'Server'
 cobo = 'Collot Bot'
-BINARY = 871649185194184704
+BINARY = os.environ['BINARY']
+CONSTLOG = os.environ['CONSTLOG']
 
 class utilitiesAPI(commands.Cog):
     def __init__(self, bot):
@@ -20,6 +22,12 @@ class utilitiesAPI(commands.Cog):
         print('[{0}][{1}][cogs/info/{2}] Command loaded : morse'.format(sv, datetime.now(), self.__class__.__name__))
         print('[{0}][{1}][cogs/info/{2}] Command loaded : random'.format(sv, datetime.now(), self.__class__.__name__))
     
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][cogs/info] Loaded : {2}'.format(sv, datetime.now(), self.__class__.__name__))
+        await constlog.send('[{0}][{1}][cogs/info/{2}] Command loaded : binary'.format(sv, datetime.now(), self.__class__.__name__))
+        await constlog.send('[{0}][{1}][cogs/info/{2}] Command loaded : morse'.format(sv, datetime.now(), self.__class__.__name__))
+        await constlog.send('[{0}][{1}][cogs/info/{2}] Command loaded : random'.format(sv, datetime.now(), self.__class__.__name__))
+
     @slash_command(guild_ids=[BINARY], description="To convert text to binary")
     async def binary(self, ctx, text : Option(str, "Input your text to convert")):
         
@@ -38,6 +46,10 @@ class utilitiesAPI(commands.Cog):
         await ctx.respond(embed=emBed)
         #cmd
         print('[{0}][{1}][{2}] query "binary" server : {3} channel : {4}'
+        .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
+
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][{2}] query "binary" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
 
     @slash_command(guild_ids=[BINARY], description="To convert text to morse code")
@@ -152,6 +164,10 @@ class utilitiesAPI(commands.Cog):
         print('[{0}][{1}][{2}] query "morse" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
 
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][{2}] query "morse" server : {3} channel : {4}'
+        .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
+
     @slash_command(guild_ids=[BINARY], description="Random numbeer by give min and max values")
     async def random(self, ctx, min : Option(int, "Input minimum number"), max : Option(int, "Input maximum number")):
         try :    
@@ -172,6 +188,10 @@ class utilitiesAPI(commands.Cog):
             await ctx.respond("Values error please try again")
     
         print('[{0}][{1}][{2}] query "random" server : {3} channel : {4}'
+        .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
+
+        constlog = self.bot.get_channel(CONSTLOG)
+        await constlog.send('[{0}][{1}][{2}] query "random" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))
 
 def setup(bot):
