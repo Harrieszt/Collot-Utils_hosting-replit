@@ -18,128 +18,9 @@ with open('./data/collot_info.json') as collot_i:
 #cmd var
 sv = 'Server'
 cobo = 'Collot Bot'
-COLLOT_ID = os.environ['COLID']
-BINARY = os.environ['BINARY']
-CONSTLOG = os.environ['CONSTLOG']
-
-class Help(discord.ui.View):
-    def __init__(self, ctx):
-        self.ctx = ctx
-        super().__init__(timeout=60)
-
-    async def interaction_check(self, interaction: discord.Interaction) -> bool:
-        if interaction.user == self.ctx.author:
-            return True
-        await interaction.response.send_message("You can't do this", ephemeral=True)
-        return False
-    
-    async def on_timeout(self):
-        if self.message:
-            emBed = discord.Embed()
-            emBed.title="Time out"
-            emBed.color=0xa32424
-            self.myselect.disabled = True
-            await self.message.edit_original_message(view=self)
-        
-    @discord.ui.select(placeholder="Select a category", row=0, options=[
-        discord.SelectOption(label="Information", emoji='ℹ️'),
-        discord.SelectOption(label="Utility", emoji='⚛'),
-        discord.SelectOption(label="Fun", emoji='🥳'),
-        discord.SelectOption(label="Pirategames", emoji='🏴‍☠️')
-    ])
-    
-    async def myselect(self, select: discord.ui.Select, interaction: discord.Interaction):
-        if select.values[0] == "Information":
-            info_head = '[ ℹ Information]'
-            ###[Command]###
-            about_ = f'> **`about`** : To get bot infromation\n'
-            info_ = f'> **`info`** : To get user information\n'
-            whois_ = f'> **`whois`** : To get user information search by using user ID\n'
-            serverinfo_ = f'> **`serverinfo`** : To get server information\n'
-            help_ = f'> **`help`** : To get help command\n'   
-            ###
-            info_assem = '{0}{1}{2}{3}{4}'.format(info_, about_, whois_, serverinfo_, help_)
-
-            #[Embed]
-            emBed = discord.Embed()
-            emBed.title="Collot Utilities - Help"
-            emBed.color=0x42f5a7
-
-            #Embed content
-            emBed.add_field(name=info_head, value=info_assem, inline=False)
-            ###
-            #emBed.set_thumbnail(url='https://static.wikia.nocookie.net/beastars-eng/images/b/bc/Collot_%28Anime%29.png/revision/latest/scale-to-width-down/259?cb=20190806180535')
-            emBed.set_footer(text='Collot Utilities created by Harry HK', icon_url='https://i.imgur.com/4yrIv05.jpg')
-        
-            await self.message.edit_original_message(embed=emBed)
-
-        elif select.values[0] == "Utility":
-            uti_head = '[ ⚛ Utility]'
-            ###[Command]###
-            bin_ = f'> **`binary`** : To convert text to binary\n'      
-            mor_ = f'> **`morse`** : To convert text to morse code\n'      
-            ran_ = f'> **`random`** : To random number by give min and max number\n'       
-            ###
-            uti_assem = '{0}{1}{2}'.format(bin_, mor_, ran_)
-
-            #[Embed]
-            emBed = discord.Embed()
-            emBed.title="Collot Utilities - Help"
-            emBed.color=0x00fffb
-
-            #Embed content
-            emBed.add_field(name=uti_head, value=uti_assem, inline=False) 
-            ###
-            #emBed.set_thumbnail(url='https://static.wikia.nocookie.net/beastars-eng/images/b/bc/Collot_%28Anime%29.png/revision/latest/scale-to-width-down/259?cb=20190806180535')
-            emBed.set_footer(text='Collot Utilities created by Harry HK', icon_url='https://i.imgur.com/4yrIv05.jpg')
-
-            await self.message.edit_original_message(embed=emBed)
-        
-        elif select.values[0] == "Pirategames":
-            pirate_head = '[ 🏴‍☠️ Pirate of Discord]'
-            ###[Command]###
-            bal_ = f'> **`balance`** : To check your balance\n'                   
-            mer_ = f'> **`merchant`** : To buy voyage\n'                   
-            voy_ = f'> **`voyage`** : To start voyage\n'                                 
-            ###
-            pirate_assem = '{0}{1}{2}'.format(bal_,mer_,voy_)
-
-            #[Embed]
-            emBed = discord.Embed()
-            emBed.title="Collot Utilities - Help"
-            emBed.color=0x5f57ff
-
-            #Embed content
-            emBed.add_field(name=pirate_head, value=pirate_assem, inline=False) 
-            ###
-            #emBed.set_thumbnail(url='https://static.wikia.nocookie.net/beastars-eng/images/b/bc/Collot_%28Anime%29.png/revision/latest/scale-to-width-down/259?cb=20190806180535')
-            emBed.set_footer(text='Collot Utilities created by Harry HK', icon_url='https://i.imgur.com/4yrIv05.jpg')
-
-            await self.message.edit_original_message(embed=emBed)
-        
-        elif select.values[0] == "Fun":
-            fun_head = '[ 🥳 Fun]'
-            ###[Command]###
-            wan_ = f'> **`wanted`** : To send wanted poster with profile mentioned on it\n'         
-            rip_ = f'> **`rip`** : To send RIP poster with profile mentioned on it\n'         
-            bir_ = f'> **`bird`** : To random send bird picture\n'         
-            cat_ = f'> **`cat`** : To random send cat picture\n'         
-            dog_ = f'> **`dog`** : To random send dog picture\n'         
-            ###
-            fun_assem = '{0}{1}{2}{3}{4}'.format(wan_, rip_, bir_, cat_, dog_)
-
-            #[Embed]
-            emBed = discord.Embed()
-            emBed.title="Collot Utilities - Help"
-            emBed.color=0xffd500
-
-            #Embed content
-            emBed.add_field(name=fun_head, value=fun_assem, inline=False) 
-            ###
-            #emBed.set_thumbnail(url='https://static.wikia.nocookie.net/beastars-eng/images/b/bc/Collot_%28Anime%29.png/revision/latest/scale-to-width-down/259?cb=20190806180535')
-            emBed.set_footer(text='Collot Utilities created by Harry HK', icon_url='https://i.imgur.com/4yrIv05.jpg')
-
-            await self.message.edit_original_message(embed=emBed)
+COLLOT_ID = int(os.environ['COLLOT_ID'])
+BINARY = int(os.environ['BINARY'])
+CONSTLOG = int(os.environ['CONSTLOG'])
 
 class infoAPI(commands.Cog):
     def __init__(self, bot):
@@ -323,12 +204,35 @@ class infoAPI(commands.Cog):
         
         basic_head = '[ Category ]'
         ###[Category]###
-        info_ = f'• ℹ Information'
-        uti_ = f'• ⚛ Utility'
-        fun_ = f'• 🥳 Fun'
-        gam_ = f'• 🏴‍☠️ Pirate games'
+        info_head = '[ ℹ Information]\n'
+        ###[Command]###
+        about_ = f'> **`about`** : To get bot infromation\n'
+        info_ = f'> **`info`** : To get user information\n'
+        whois_ = f'> **`whois`** : To get user information search by using user ID\n'
+        serverinfo_ = f'> **`serverinfo`** : To get server information\n'
+        help_ = f'> **`help`** : To get help command\n'   
         ###
-        basic_assem = '{0}\n{1}\n{2}\n{3}'.format(info_, uti_, fun_, gam_)
+        info_assem = '{0}{1}{2}{3}{4}'.format(info_, about_, whois_, serverinfo_, help_)
+
+        uti_head = '[ ⚛ Utility]\n'
+        ###[Command]###
+        bin_ = f'> **`binary`** : To convert text to binary\n'      
+        mor_ = f'> **`morse`** : To convert text to morse code\n'      
+        ran_ = f'> **`random`** : To random number by give min and max number\n'       
+        ###
+        uti_assem = '{0}{1}{2}'.format(bin_, mor_, ran_)
+
+        fun_head = '[ 🥳 Fun]\n'
+        ###[Command]###
+        wan_ = f'> **`wanted`** : To send wanted poster with profile mentioned on it\n'         
+        rip_ = f'> **`rip`** : To send RIP poster with profile mentioned on it\n'         
+        bir_ = f'> **`bird`** : To random send bird picture\n'         
+        cat_ = f'> **`cat`** : To random send cat picture\n'         
+        dog_ = f'> **`dog`** : To random send dog picture\n'         
+        ###
+        fun_assem = '{0}{1}{2}{3}{4}'.format(wan_, rip_, bir_, cat_, dog_)
+        ###
+        basic_assem = '{0}\n{1}\n{2}\n{3}'.format(info_assem, uti_assem, fun_assem)
 
         #[Embed]
         emBed = discord.Embed()

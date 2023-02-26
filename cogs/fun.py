@@ -22,8 +22,8 @@ with open('./data/random_img/dog.json') as dog:
 
 sv = 'Server'
 cobo = 'Collot Bot'
-BINARY = os.environ['BINARY']
-CONSTLOG = os.environ['CONSTLOG']
+BINARY = int(os.environ['BINARY'])
+CONSTLOG = int(os.environ['CONSTLOG'])
 
 def circle(pfp,size = (215,215)):
     
@@ -98,7 +98,7 @@ class funAPI(commands.Cog):
             wanted.save('./data/pfp_cache/wanted_cache.PNG')
 
         #respond
-        await ctx.respond(file = discord.File('.././data/pfp_cache/wanted_cache.PNG'))
+        await ctx.respond(file = discord.File('./data/pfp_cache/wanted_cache.PNG'))
         #cmd
         print('[{0}][{1}][{2}] query "wanted" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))

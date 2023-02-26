@@ -8,8 +8,8 @@ import random
 
 sv = 'Server'
 cobo = 'Collot Bot'
-BINARY = os.environ['BINARY']
-CONSTLOG = os.environ['CONSTLOG']
+BINARY = int(os.environ['BINARY'])
+CONSTLOG = int(os.environ['CONSTLOG'])
 
 class utilitiesAPI(commands.Cog):
     def __init__(self, bot):
