@@ -11,13 +11,13 @@ from io import BytesIO
 import json
 import random
 
-with open('.././data/random_img/bird.json') as bird:
+with open('./data/random_img/bird.json') as bird:
     b_img = json.load(bird)
 
-with open('.././data/random_img/cat.json') as cat:
+with open('./data/random_img/cat.json') as cat:
     c_img = json.load(cat)
 
-with open('.././data/random_img/dog.json') as dog:
+with open('./data/random_img/dog.json') as dog:
     d_img = json.load(dog)
 
 sv = 'Server'
@@ -64,7 +64,7 @@ class funAPI(commands.Cog):
         if not user:
             user = ctx.author
 
-        wanted = Image.open('.././data/image/wanted.PNG')
+        wanted = Image.open('./data/image/wanted.PNG')
         draw = ImageDraw.Draw(wanted)
         
         random_reward = [
@@ -85,17 +85,17 @@ class funAPI(commands.Cog):
         data = BytesIO(await asset.read())
         pfp = Image.open(data).convert('RGBA')
         pfp = pfp.resize((330,330))
-        rewardfont = ImageFont.truetype(".././data/font/western.otf", 100)
+        rewardfont = ImageFont.truetype("./data/font/western.otf", 100)
 
         if  random_ == '1' :
             draw.text((50,530), hundred_million, fill = "black", font = rewardfont)
             wanted.paste(pfp, (61,162))
-            wanted.save('.././data/pfp_cache/wanted_cache.PNG')
+            wanted.save('./data/pfp_cache/wanted_cache.PNG')
 
         else :
             draw.text((80,530), normal_reward, fill = "black", font = rewardfont)
             wanted.paste(pfp, (61,162))
-            wanted.save('.././data/pfp_cache/wanted_cache.PNG')
+            wanted.save('./data/pfp_cache/wanted_cache.PNG')
 
         #respond
         await ctx.respond(file = discord.File('.././data/pfp_cache/wanted_cache.PNG'))
@@ -112,7 +112,7 @@ class funAPI(commands.Cog):
         if not user:
             user = ctx.author
 
-        rip = Image.open('.././data/image/rip.png')
+        rip = Image.open('./data/image/rip.png')
         draw = ImageDraw.Draw(rip)
 
         asset = user.avatar
@@ -120,14 +120,14 @@ class funAPI(commands.Cog):
         pfp = Image.open(data).convert('RGBA')
         pfp = pfp.resize((369,355))
         pfp = circle(pfp, (360, 360))
-        ripfont = ImageFont.truetype(".././data/font/western.otf", 80)
+        ripfont = ImageFont.truetype("./data/font/western.otf", 80)
 
         rip.paste(pfp, (225,407), pfp)
         draw.text((250,755), str(user.display_name), fill = "black", font = ripfont)
-        rip.save('.././data/pfp_cache/rip_cache.png')
+        rip.save('./data/pfp_cache/rip_cache.png')
 
         #respond
-        await ctx.respond(file = discord.File('.././data/pfp_cache/rip_cache.png'))
+        await ctx.respond(file = discord.File('./data/pfp_cache/rip_cache.png'))
         #cmd
         print('[{0}][{1}][{2}] query "rip" server : {3} channel : {4}'
         .format(cobo, datetime.now(), ctx.author, ctx.guild, ctx.channel))

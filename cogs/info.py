@@ -7,11 +7,11 @@ from discord.ui import Button, View
 from datetime import datetime
 from discord.commands import Option, permissions, slash_command
 
-with open('.././data/harry_website.json') as harry_web:
+with open('./data/harry_website.json') as harry_web:
     web = json.load(harry_web)
     h_url = web["web"]
 
-with open('.././data/collot_info.json') as collot_i:
+with open('./data/collot_info.json') as collot_i:
     v = json.load(collot_i)
     version = v["version"]
 
@@ -166,7 +166,7 @@ class infoAPI(commands.Cog):
     async def about(self, ctx):       
         #int
         bot = ctx.bot 
-        id = '513382486269624332'
+        id = str(COLLOT_ID)
 
         #fetch name
         collot = await bot.fetch_user(id)
